@@ -4,7 +4,12 @@ using System.Text;
 
 namespace HandinTwo.klasser
 {
-    interface IDoor
+    public interface IDoor
     {
+        void DoorLock();
+        void DoorUnlock();
+
+        public event EventHandler<CurrentEventArgs> OpenDoorEvent;
+    
     }
 }

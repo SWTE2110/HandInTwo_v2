@@ -11,6 +11,6 @@ namespace HandinTwo.klasser
         void PhoneConnect();
         void PhoneRemove();
         void ConnectionError();
-        void IsOccupied(bool);
+        void IsOccupied(bool occupation);
     }
 }

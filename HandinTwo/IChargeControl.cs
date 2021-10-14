@@ -6,10 +6,8 @@ namespace HandinTwo.klasser
 {
     public interface IChargeControl
     {
-        void DoorLock();
-        void DoorUnlock();
-        
-        public event EventHandler<CurrentEventArgs> OpenDoorEvent;
+        void StartCharge();
+        void StopCharge();
 
     }
 }

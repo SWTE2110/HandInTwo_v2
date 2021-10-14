@@ -4,7 +4,9 @@ using System.Text;
 
 namespace HandinTwo.klasser
 {
-    interface ILogFile
+    public interface ILogFile
     {
+        void LogDoorLocked(int Id);
+        void LogDoorUnlocked(int Id);
     }
 }
