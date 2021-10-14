@@ -22,10 +22,25 @@ namespace HandinTwo.klasser
         private IChargeControl _charger;
         private int _oldId;
         private IDoor _door;
+        private IRfidReader _reader;
+
+        StationControl(IChargeControl c, IDoor d, IRfidReader r)
+        {
+            _charger = c;
+            _door = d;
+            _reader = r;
+
+            r.ReadRfidEvent += OnRfidDetected;
+
+        }
+
+        private void OnRfidDetected(object sender, RfidEventArgs e)
+        {
+               
+            RfidDetected(e.Id);
+        }
 
         private string logFile = "logfile.txt"; // Navnet på systemets log-fil
-
-        // Her mangler constructor
 
         // Eksempel på event handler for eventet "RFID Detected" fra tilstandsdiagrammet for klassen
         private void RfidDetected(int id)

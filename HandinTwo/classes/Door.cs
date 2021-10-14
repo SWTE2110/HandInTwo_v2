@@ -6,6 +6,7 @@ namespace HandinTwo.klasser.classes
 {
     public class Door : IDoor
     {
+
         public void DoorLock()
         {
 

@@ -4,8 +4,14 @@ using System.Text;
 
 namespace HandinTwo.klasser
 {
+
+    public class RfidEventArgs : EventArgs
+    {
+        public int Id { get; set; }
+    }
+
     public interface IRfidReader
     {
-        event EventHandler<CurrentEventArgs> ReadRfdEvent;
+        event EventHandler<RfidEventArgs> ReadRfidEvent;
     }
 }
