@@ -4,7 +4,17 @@ using System.Text;
 
 namespace HandinTwo.klasser.classes
 {
-    class Door
+    public class Door : IDoor
     {
+        public void DoorLock()
+        {
+
+        }
+        public void DoorUnlock()
+        {
+
+        }
+
+        public event EventHandler<CurrentEventArgs> OpenDoorEvent;
     }
 }

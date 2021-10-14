@@ -9,7 +9,7 @@ namespace HandinTwo.klasser
         void DoorLock();
         void DoorUnlock();
 
-        public event EventHandler<CurrentEventArgs> OpenDoorEvent;
+        event EventHandler<CurrentEventArgs> OpenDoorEvent;
     
     }
 }

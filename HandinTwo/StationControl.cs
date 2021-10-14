@@ -34,9 +34,9 @@ namespace HandinTwo.klasser
             {
                 case LadeskabState.Available:
                     // Check for ladeforbindelse
-                    if (_charger.Connected)
+                    if (_charger.Connected())
                     {
-                        _door.LockDoor();
+                        _door.DoorLock();
                         _charger.StartCharge();
                         _oldId = id;
                         using (var writer = File.AppendText(logFile))
@@ -63,7 +63,7 @@ namespace HandinTwo.klasser
                     if (id == _oldId)
                     {
                         _charger.StopCharge();
-                        _door.UnlockDoor();
+                        _door.DoorUnlock();
                         using (var writer = File.AppendText(logFile))
                         {
                             writer.WriteLine(DateTime.Now + ": Skab låst op med RFID: {0}", id);

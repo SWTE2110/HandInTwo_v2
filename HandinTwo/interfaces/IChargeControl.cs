@@ -6,8 +6,9 @@ namespace HandinTwo.klasser
 {
     public interface IChargeControl
     {
-        public void StartCharge();
-        public void StopCharge();
+        void StartCharge();
+        void StopCharge();
+        bool Connected();
 
     }
 }
