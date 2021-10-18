@@ -1,34 +1,36 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using HandinTwo.Interfaces;
+using Console = System.Console;
 
-namespace HandinTwo.klasser.classes
+namespace HandinTwo.Classes
 {
     public class Display : IDisplay
     {
-        public void RFidStatus()
+        public void RFidRead()
         {
-
+            Console.WriteLine("Indlæs RFID");
         }
         public void RFidError()
         {
-
+            Console.WriteLine("RFID fejl");
         }
         public void PhoneConnect()
         {
-
+            Console.WriteLine("Tilslut telefon");
         }
         public void PhoneRemove()
         {
-
+            Console.WriteLine("Fjern telefon");
         }
         public void ConnectionError()
         {
-
+            Console.WriteLine("Tilslutningsfejl");
         }
-        public void IsOccupied(bool occupation)
+        public void IsOccupied(int id)
         {
-
+            Console.WriteLine($"Ladeskab optaget af {id}");
         }
     }
 }

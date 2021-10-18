@@ -2,15 +2,16 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace HandinTwo.klasser
+namespace HandinTwo.Interfaces
 {
     public interface IDisplay
     {
-        void RFidStatus();
+        void RFidRead();
         void RFidError();
         void PhoneConnect();
         void PhoneRemove();
         void ConnectionError();
-        void IsOccupied(bool occupation);
+        void IsOccupied(int id);
+
     }
 }

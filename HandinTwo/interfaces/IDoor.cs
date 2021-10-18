@@ -2,14 +2,15 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace HandinTwo.klasser
+namespace HandinTwo.Interfaces
 {
     public interface IDoor
     {
         void DoorLock();
         void DoorUnlock();
 
-        event EventHandler<CurrentEventArgs> OpenDoorEvent;
-    
+        event EventHandler<EventArgs> OpenDoorEvent;
+        event EventHandler<EventArgs> CloseDoorEvent;
+
     }
 }

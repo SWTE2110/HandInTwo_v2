@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using HandinTwo;
+using HandinTwo.Classes;
 
 namespace HandinTwo.Test
 {

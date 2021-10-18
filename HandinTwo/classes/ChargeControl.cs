@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using HandinTwo.Interfaces;
 
-namespace HandinTwo.klasser.classes
+namespace HandinTwo.Classes
 {
     public class ChargeControl : IChargeControl
     {

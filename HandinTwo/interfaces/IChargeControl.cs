@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace HandinTwo.klasser
+namespace HandinTwo.Interfaces
 {
     public interface IChargeControl
     {

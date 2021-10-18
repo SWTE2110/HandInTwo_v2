@@ -1,6 +1,6 @@
-﻿using System;
+﻿    using System;
 
-namespace HandinTwo.klasser
+namespace HandinTwo.Interfaces
 {
     public class CurrentEventArgs : EventArgs
     {

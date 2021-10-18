@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using HandinTwo.Interfaces;
 
-namespace HandinTwo.klasser.classes
+namespace HandinTwo.Classes
 {
     public class Door : IDoor
     {
@@ -16,6 +17,11 @@ namespace HandinTwo.klasser.classes
 
         }
 
-        public event EventHandler<CurrentEventArgs> OpenDoorEvent;
+        public event EventHandler<EventArgs> OpenDoorEvent;
+      
+
+        public event EventHandler<EventArgs> CloseDoorEvent;
+
+       
     }
 }
