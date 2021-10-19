@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using HandinTwo.Interfaces;
 
-namespace HandinTwo.klasser
+namespace HandinTwo.Classes
 {
     public class StationControl
     {

@@ -7,11 +7,17 @@ namespace HandinTwo.Interfaces
 
     public class RfidEventArgs : EventArgs
     {
+        public RfidEventArgs(int id)
+        {
+            Id = id;
+        }
         public int Id { get; set; }
     }
 
     public interface IRfidReader
     {
         event EventHandler<RfidEventArgs> ReadRfidEvent;
+
+        public void SimulateRFID(int id);
     }
 }

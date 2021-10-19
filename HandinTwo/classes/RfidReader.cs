@@ -9,7 +9,18 @@ namespace HandinTwo.Classes
     public class RfidReader : IRfidReader
     {
 
+    
+
         public event EventHandler<RfidEventArgs> ReadRfidEvent;
+
+        public void SimulateRFID(int id)
+        {
+            EventHandler<RfidEventArgs> handler = ReadRfidEvent;
+            handler?.Invoke(this, new RfidEventArgs(id));
+        }
+
+       
+
 
     }
 }
