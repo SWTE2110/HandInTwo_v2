@@ -24,14 +24,20 @@ namespace HandinTwo.klasser
         private int _oldId;
         private IDoor _door;
         private IRfidReader _reader;
+        private IDisplay _display;
+        private ILogFile _log;
 
-        StationControl(IChargeControl c, IDoor d, IRfidReader r)
+        StationControl(IChargeControl c, IDoor d, IRfidReader r, IDisplay dp, ILogFile l)
         {
             _charger = c;
             _door = d;
             _reader = r;
+            _display = dp;
+            _log = l;
 
-            r.ReadRfidEvent += OnRfidDetected;
+
+            _reader.ReadRfidEvent += OnRfidDetected;
+            
 
         }
 
@@ -55,17 +61,14 @@ namespace HandinTwo.klasser
                         _door.DoorLock();
                         _charger.StartCharge();
                         _oldId = id;
-                        using (var writer = File.AppendText(logFile))
-                        {
-                            writer.WriteLine(DateTime.Now + ": Skab låst med RFID: {0}", id);
-                        }
+                        _log.LogDoorLocked(id);
 
-                        Console.WriteLine("Skabet er låst og din telefon lades. Brug dit RFID tag til at låse op.");
+                        _display.IsOccupied(id);
                         _state = LadeskabState.Locked;
                     }
                     else
                     {
-                        Console.WriteLine("Din telefon er ikke ordentlig tilsluttet. Prøv igen.");
+                        _display.ConnectionError();
                     }
 
                     break;
@@ -80,17 +83,14 @@ namespace HandinTwo.klasser
                     {
                         _charger.StopCharge();
                         _door.DoorUnlock();
-                        using (var writer = File.AppendText(logFile))
-                        {
-                            writer.WriteLine(DateTime.Now + ": Skab låst op med RFID: {0}", id);
-                        }
+                        _log.LogDoorUnlocked(id);
 
-                        Console.WriteLine("Tag din telefon ud af skabet og luk døren");
+                        _display.PhoneRemove();
                         _state = LadeskabState.Available;
                     }
                     else
                     {
-                        Console.WriteLine("Forkert RFID tag");
+                        _display.RFidError();
                     }
 
                     break;
