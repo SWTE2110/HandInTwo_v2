@@ -13,7 +13,7 @@ namespace HandinTwo.Test
     public class TestDisplayUnit
     {
 
-        public IDisplay _uut;
+        public Display _uut;
         public StringWriter _text;
 
 
@@ -69,5 +69,8 @@ namespace HandinTwo.Test
             _uut.IsOccupied(i);
             Assert.That(_text.ToString(), Is.EqualTo($"Ladeskab optaget af {i}\r\n"));
         }
+
+        [Test]
+
     }
 }

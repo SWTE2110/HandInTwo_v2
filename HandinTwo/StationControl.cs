@@ -35,9 +35,8 @@ namespace HandinTwo.Classes
             _display = dp;
             _log = l;
 
-
-            _reader.ReadRfidEvent += OnRfidDetected;
             
+            _reader.ReadRfidEvent += OnRfidDetected;
 
         }
 
