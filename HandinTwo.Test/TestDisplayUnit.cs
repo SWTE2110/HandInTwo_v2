@@ -70,7 +70,5 @@ namespace HandinTwo.Test
             Assert.That(_text.ToString(), Is.EqualTo($"Ladeskab optaget af {i}\r\n"));
         }
 
-        [Test]
-
     }
 }
