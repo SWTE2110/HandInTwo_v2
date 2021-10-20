@@ -22,26 +22,16 @@ namespace HandinTwo.Test
         }
 
         [Test]
-        public void Test_IsLocked_True()
+        public void Test_Init_IsLocked()
         {
-            _uut.IsLocked = true;
 
-            Assert.IsTrue(_uut.IsLocked);
-        }
-
-        [Test]
-        public void Test_IsLocked_False()
-        {
-            _uut.IsLocked = false;
-
-            Assert.IsTrue(!_uut.IsLocked);
+            Assert.IsFalse(_uut.IsLocked);
         }
 
         [Test] 
         public void Test_DoorLock()
         {
             _uut.DoorLock();
-
 
             Assert.IsTrue(_uut.IsLocked);
         }
@@ -51,10 +41,53 @@ namespace HandinTwo.Test
         {
             _uut.DoorUnlock();
 
-
             Assert.IsTrue(!_uut.IsLocked);
         }
 
+        [Test]
+        public void Test_OpenDoorEvent_Unlocked()
+        {
+
+            int eventCount = 0;
+
+            _uut.OpenDoorEvent += (sender, args) => eventCount++;
+
+            _uut.OnDoorOpen();
+
+            Assert.That(eventCount, Is.EqualTo(1));
+
+        }
+
+        [Test]
+        public void Test_OpenDoorEvent_Locked()
+        {
+
+            int eventCount = 0;
+
+            _uut.OpenDoorEvent += (sender, args) => eventCount++;
+
+            _uut.DoorLock();
+
+            _uut.OnDoorOpen();
+
+            Assert.That(eventCount, Is.EqualTo(0));
+
+        }
+
+        [Test]
+        public void Test_CloseDoorEvent()
+        {
+
+            int eventCount = 0;
+
+            _uut.CloseDoorEvent += (sender, args) => eventCount++;
+
+            _uut.OnDoorClosed();
+
+            Assert.That(eventCount, Is.EqualTo(1));
+
+        }
 
     }
+
 }
