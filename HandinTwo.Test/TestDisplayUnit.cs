@@ -69,5 +69,6 @@ namespace HandinTwo.Test
             _uut.IsOccupied(i);
             Assert.That(_text.ToString(), Is.EqualTo($"Ladeskab optaget af {i}\r\n"));
         }
+
     }
 }
