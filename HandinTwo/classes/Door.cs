@@ -8,14 +8,15 @@ namespace HandinTwo.Classes
     public class Door : IDoor
     {
 
-        private bool _isLocked;
+        private bool _isLocked = false;
 
-        public bool IsLocked { get => _isLocked; set => _isLocked = IsLocked; }
+        public bool IsLocked { get => _isLocked; }
 
         public void DoorLock()
         {
             _isLocked = true;
         }
+
         public void DoorUnlock()
         {
             _isLocked = false;
@@ -38,8 +39,7 @@ namespace HandinTwo.Classes
         {
             EventHandler<EventArgs> handler = CloseDoorEvent;
 
-            if (_isLocked)
-                handler?.Invoke(this, new EventArgs());
+            handler?.Invoke(this, new EventArgs());
 
         }
     }
