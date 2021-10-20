@@ -18,6 +18,6 @@ namespace HandinTwo.Interfaces
     {
         event EventHandler<RfidEventArgs> ReadRfidEvent;
 
-        public void SimulateRFID(int id);
+        public void OnRfidRead(int id);
     }
 }
