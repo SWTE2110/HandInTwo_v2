@@ -11,16 +11,14 @@ namespace HandinTwo.Test
     [TestFixture]
     public class TestLogUnit
     {
-        private string _fp = "LogfileTest.txt";
+        private string _fp;
         private LogFile _uut;
         string _readback;
 
         [SetUp]
         public void Setup()
         {
-            _uut = new LogFile(_fp);
-            File.WriteAllText(_fp, String.Empty);
-            _readback = String.Empty;
+            
         }
 
         [TestCase(21)]
@@ -28,28 +26,43 @@ namespace HandinTwo.Test
         [TestCase(56)]
         public void LogLockedTestSingleEntry(int _id)
         {
-            
+            _fp = $"TestLogFile{_id}.txt";
+            _uut = new LogFile(_fp);
+            File.WriteAllText(_fp, String.Empty);
+            _readback = String.Empty;
+
+
             _uut.LogDoorLocked(_id);
             _readback = File.ReadAllText(_fp);
             Assert.That(_readback, Is.EqualTo($"Door locked with id:{_id}\r\n"));
         }
 
-        [TestCase(21)]
-        [TestCase(182)]
-        [TestCase(56)]
+        [TestCase(22)]
+        [TestCase(183)]
+        [TestCase(57)]
         public void LogUnlockedTestSingleEntry(int _id)
         {
+            _fp = $"TestLogFile{_id}.txt";
+            _uut = new LogFile(_fp);
+            File.WriteAllText(_fp, String.Empty);
+            _readback = String.Empty;
+
 
             _uut.LogDoorUnlocked(_id);
             _readback = File.ReadAllText(_fp);
             Assert.That(_readback, Is.EqualTo($"Door unlocked with id:{_id}\r\n"));
         }
 
-        [TestCase(21, 84, 72, 48)]
-        [TestCase(182, 182, 1, 92)]
-        [TestCase(56, 75, 75, 2)]
+        [TestCase(23, 84, 72, 48)]
+        [TestCase(185, 182, 1, 92)]
+        [TestCase(58, 75, 75, 2)]
         public void LogMultipleEntries(int _id1, int _id2, int _id3, int _id4)
         {
+
+            _fp = $"TestLogFile{_id1}.txt";
+            _uut = new LogFile(_fp);
+            File.WriteAllText(_fp, String.Empty);
+            _readback = String.Empty;
 
             _uut.LogDoorLocked(_id1);
             _uut.LogDoorLocked(_id2);
