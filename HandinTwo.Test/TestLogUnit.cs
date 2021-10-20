@@ -27,8 +27,9 @@ namespace HandinTwo.Test
         public void LogLockedTestSingleEntry(int _id)
         {
             _fp = $"TestLogFile{_id}.txt";
-            _uut = new LogFile(_fp);
             File.WriteAllText(_fp, String.Empty);
+            _uut = new LogFile(_fp);
+            
             _readback = String.Empty;
 
 
@@ -43,8 +44,9 @@ namespace HandinTwo.Test
         public void LogUnlockedTestSingleEntry(int _id)
         {
             _fp = $"TestLogFile{_id}.txt";
-            _uut = new LogFile(_fp);
             File.WriteAllText(_fp, String.Empty);
+            _uut = new LogFile(_fp);
+           
             _readback = String.Empty;
 
 
@@ -60,8 +62,9 @@ namespace HandinTwo.Test
         {
 
             _fp = $"TestLogFile{_id1}.txt";
-            _uut = new LogFile(_fp);
             File.WriteAllText(_fp, String.Empty);
+            _uut = new LogFile(_fp);
+           
             _readback = String.Empty;
 
             _uut.LogDoorLocked(_id1);
