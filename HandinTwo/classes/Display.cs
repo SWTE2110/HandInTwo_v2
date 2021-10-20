@@ -8,6 +8,9 @@ namespace HandinTwo.Classes
 {
     public class Display : IDisplay
     {
+
+        public void test() { }
+
         public void RFidRead()
         {
             Console.WriteLine("Indlæs RFID");
