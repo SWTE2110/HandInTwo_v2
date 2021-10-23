@@ -1,47 +1,66 @@
-﻿using System;
+﻿using HandinTwo.Interfaces;
+using System;
+using HandinTwo.Classes;
 
-//class Program
-//    {
-//        static void Main(string[] args)
-//        {
-//				// Assemble your system here from all the classes
-                
+class Program
+{
+    static void Main(string[] args)
+    {
+        // Assemble your system here from all the classes
 
-//            bool finish = false;
-//            do
-//            {
-//                string input;
-//                System.Console.WriteLine("Indtast E, O, C, R: ");
-//                input = Console.ReadLine();
-//                if (string.IsNullOrEmpty(input)) continue;
+        string logFile = "logfile.txt"; // Navnet på systemets log-fil
+        IUsbCharger usb = new UsbChargerSimulator();
+        IChargeControl charger = new ChargeControl(usb);
+        IDoor door = new Door();
+        IRfidReader reader = new RfidReader();
+        IDisplay display = new Display();
+        ILogFile log = new LogFile(logFile);
+        StationControl stat = new StationControl(charger, door, reader, display, log);
+         
 
-//                switch (input[0])
-//                {
-//                    case 'E':
-//                        finish = true;
-//                        break;
 
-//                    case 'O':
-//                        door.OnDoorOpen();
-//                        break;
+    bool finish = false;
+        do
+        {
+            string input;
+            System.Console.WriteLine("Indtast E, O, C, R, A, S: ");
+            input = Console.ReadLine();
+            if (string.IsNullOrEmpty(input)) continue;
 
-//                    case 'C':
-//                        door.OnDoorClose();
-//                        break;
+            switch (input[0])
+            {
+                case 'E':
+                    finish = true;
+                    break;
 
-//                    case 'R':
-//                        System.Console.WriteLine("Indtast RFID id: ");
-//                        string idString = System.Console.ReadLine();
+                case 'O':
+                    door.OnDoorOpen();
+                    break;
 
-//                        int id = Convert.ToInt32(idString);
-//                        rfidReader.OnRfidRead(id);
-//                        break;
+                case 'C':
+                    door.OnDoorClosed();
+                    break;
 
-//                    default:
-//                        break;
-//                }
+                case 'R':
+                    System.Console.WriteLine("Indtast RFID id: ");
+                    string idString = System.Console.ReadLine();
 
-//            } while (!finish);
-//        }
-//    }
+                    int id = Convert.ToInt32(idString);
+                    reader.OnRfidRead(id);
+                    break;
+                case 'A':
+                    usb.SimulateConnected(true);
+                    Console.WriteLine("Telefon tilsluttet");
+                    break;
+                case 'S':
+                    usb.SimulateConnected(false);
+                    Console.WriteLine("Telefon frasluttet");
+                    break;
+                default:
+                    break;
+            }
+
+        } while (!finish);
+    }
+}
 

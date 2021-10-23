@@ -23,5 +23,7 @@ namespace HandinTwo.Interfaces
         void StartCharge();
         // Stop charging
         void StopCharge();
+
+        void SimulateConnected(bool b);
     }
 }

@@ -7,6 +7,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HandinTwo.klasser", "Handin
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HandinTwo.Test", "HandinTwo.Test\HandinTwo.Test.csproj", "{A3E7FCE7-43F3-4756-AD56-D26B8AFB348A}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HandinTwo.consoleApp", "HandinTwo.consoleApp\HandinTwo.consoleApp.csproj", "{84D51F7F-4DDD-448A-98FE-EC83CC97B510}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{A3E7FCE7-43F3-4756-AD56-D26B8AFB348A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A3E7FCE7-43F3-4756-AD56-D26B8AFB348A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A3E7FCE7-43F3-4756-AD56-D26B8AFB348A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{84D51F7F-4DDD-448A-98FE-EC83CC97B510}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{84D51F7F-4DDD-448A-98FE-EC83CC97B510}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{84D51F7F-4DDD-448A-98FE-EC83CC97B510}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{84D51F7F-4DDD-448A-98FE-EC83CC97B510}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

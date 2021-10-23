@@ -26,9 +26,11 @@ namespace HandinTwo.Classes
         private IRfidReader _reader;
         private IDisplay _display;
         private ILogFile _log;
+       
 
-        StationControl(IChargeControl c, IDoor d, IRfidReader r, IDisplay dp, ILogFile l)
+        public StationControl(IChargeControl c, IDoor d, IRfidReader r, IDisplay dp, ILogFile l)
         {
+            _state = LadeskabState.Available;
             _charger = c;
             _door = d;
             _reader = r;
@@ -37,6 +39,10 @@ namespace HandinTwo.Classes
 
             
             _reader.ReadRfidEvent += OnRfidDetected;
+            _door.OpenDoorEvent += DoorOpenedHandler;
+            _door.CloseDoorEvent += DoorClosedHandler;
+
+            _display.Available();
 
         }
 
@@ -46,7 +52,43 @@ namespace HandinTwo.Classes
             RfidDetected(e.Id);
         }
 
-        private string logFile = "logfile.txt"; // Navnet på systemets log-fil
+        private void DoorOpenedHandler(object sender, EventArgs e)
+        {
+            OnDoorOpened();
+        }
+
+        private void DoorClosedHandler(object sender, EventArgs e)
+        {
+            OnDoorClosed();
+        }
+
+        private void OnDoorOpened()
+        {
+            switch (_state)
+            {
+                case LadeskabState.Available:
+                    _state = LadeskabState.DoorOpen;
+                    _display.PhoneConnect();
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        private void OnDoorClosed()
+        {
+            switch (_state)
+            {
+                case LadeskabState.DoorOpen:
+                    _state = LadeskabState.Available;
+                    _display.RFidRead();
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        
 
         // Eksempel på event handler for eventet "RFID Detected" fra tilstandsdiagrammet for klassen
         private void RfidDetected(int id)

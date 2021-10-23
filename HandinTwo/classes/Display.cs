@@ -33,5 +33,10 @@ namespace HandinTwo.Classes
         {
             Console.WriteLine($"Ladeskab optaget af {id}");
         }
+
+        public void Available()
+        {
+            Console.WriteLine("Ladestation er ledig");
+        }
     }
 }

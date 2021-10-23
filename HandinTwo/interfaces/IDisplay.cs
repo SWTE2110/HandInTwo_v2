@@ -12,6 +12,7 @@ namespace HandinTwo.Interfaces
         void PhoneRemove();
         void ConnectionError();
         void IsOccupied(int id);
+        void Available();
 
     }
 }

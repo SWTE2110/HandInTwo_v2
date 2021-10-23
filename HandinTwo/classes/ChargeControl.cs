@@ -7,25 +7,29 @@ namespace HandinTwo.Classes
 {
     public class ChargeControl : IChargeControl
     {
+        private IUsbCharger _charger;
 
-        private bool _connected = true;
+        public ChargeControl(IUsbCharger charger)
+        {
+            _charger = charger;
+        }
 
         public void StartCharge()
         {
+            _charger.StartCharge();
 
-
-            _connected = false;
+            
 
         }
         public void StopCharge()
         {
 
 
-            _connected = true;
+            _charger.StopCharge();
 
         }
 
-        public bool Connected() { return _connected; }
+        public bool Connected() { return _charger.Connected; }
 
     }
 }
