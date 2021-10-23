@@ -8,15 +8,16 @@ using HandinTwo.Interfaces;
 
 namespace HandinTwo.Classes
 {
+    public enum LadeskabState
+    {
+        Available,
+        Locked,
+        DoorOpen
+    };
     public class StationControl
     {
         // Enum med tilstande ("states") svarende til tilstandsdiagrammet for klassen
-        private enum LadeskabState
-        {
-            Available,
-            Locked,
-            DoorOpen
-        };
+       
 
         // Her mangler flere member variable
         private LadeskabState _state;
@@ -26,8 +27,12 @@ namespace HandinTwo.Classes
         private IRfidReader _reader;
         private IDisplay _display;
         private ILogFile _log;
-       
 
+        public LadeskabState State
+        {
+            get => _state;
+            private set { }
+        }
         public StationControl(IChargeControl c, IDoor d, IRfidReader r, IDisplay dp, ILogFile l)
         {
             _state = LadeskabState.Available;
@@ -90,7 +95,7 @@ namespace HandinTwo.Classes
 
         
 
-        // Eksempel på event handler for eventet "RFID Detected" fra tilstandsdiagrammet for klassen
+       
         private void RfidDetected(int id)
         {
             switch (_state)
@@ -138,6 +143,6 @@ namespace HandinTwo.Classes
             }
         }
 
-        // Her mangler de andre trigger handlere
+      
     }
 }
