@@ -18,7 +18,11 @@ namespace HandinTwo.Test
         [SetUp]
         public void Setup()
         {
-            
+            _fp = $"TestLogFile.txt";
+            File.WriteAllText(_fp, String.Empty);
+            _uut = new LogFile(_fp);
+
+            _readback = String.Empty;
         }
 
         [TestCase(21)]
@@ -26,12 +30,7 @@ namespace HandinTwo.Test
         [TestCase(56)]
         public void LogLockedTestSingleEntry(int _id)
         {
-            _fp = $"TestLogFile{_id}.txt";
-            File.WriteAllText(_fp, String.Empty);
-            _uut = new LogFile(_fp);
-            
-            _readback = String.Empty;
-
+           
 
             _uut.LogDoorLocked(_id);
             _readback = File.ReadAllText(_fp);
@@ -43,12 +42,7 @@ namespace HandinTwo.Test
         [TestCase(57)]
         public void LogUnlockedTestSingleEntry(int _id)
         {
-            _fp = $"TestLogFile{_id}.txt";
-            File.WriteAllText(_fp, String.Empty);
-            _uut = new LogFile(_fp);
-           
-            _readback = String.Empty;
-
+          
 
             _uut.LogDoorUnlocked(_id);
             _readback = File.ReadAllText(_fp);
@@ -61,12 +55,7 @@ namespace HandinTwo.Test
         public void LogMultipleEntries(int _id1, int _id2, int _id3, int _id4)
         {
 
-            _fp = $"TestLogFile{_id1}.txt";
-            File.WriteAllText(_fp, String.Empty);
-            _uut = new LogFile(_fp);
-           
-            _readback = String.Empty;
-
+         
             _uut.LogDoorLocked(_id1);
             _uut.LogDoorLocked(_id2);
             _uut.LogDoorUnlocked(_id3);

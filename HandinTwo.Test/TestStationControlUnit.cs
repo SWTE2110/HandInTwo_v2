@@ -63,6 +63,20 @@ namespace HandinTwo.Test
         }
 
         [Test]
+        public void TestOpenDoor_WhenLocked()
+        {
+            _chargerSub.Connected().Returns(true);
+            _readerSub.ReadRfidEvent += Raise.EventWith(new object(), new RfidEventArgs(0));
+            //State is now Locked
+            _displaySub.ClearReceivedCalls();
+            // Raising event that signifies Door opening
+            _doorSub.OpenDoorEvent += Raise.Event();
+            //IDisplay.PhoneConnect() should not have been called. State should remain Locked
+            _displaySub.DidNotReceive().PhoneConnect();
+            Assert.That(_uut.State, Is.EqualTo(LadeskabState.Locked));
+        }
+
+        [Test]
         public void TestCloseDoor_WhenDoorOpen()
         {
             _doorSub.OpenDoorEvent += Raise.Event();
@@ -87,6 +101,21 @@ namespace HandinTwo.Test
             _displaySub.DidNotReceive().RFidRead();
 
         }
+
+        [Test]
+        public void TestCloseDoor_WhenLocked()
+        {
+            _chargerSub.Connected().Returns(true);
+            _readerSub.ReadRfidEvent += Raise.EventWith(new object(), new RfidEventArgs(0));
+            //State is now Locked
+            _displaySub.ClearReceivedCalls();
+            //State should remain unchanged (Locked)
+            // IDisplay.RFidRead() should not have been called
+            Assert.That(_uut.State, Is.EqualTo(LadeskabState.Locked));
+            _displaySub.DidNotReceive().RFidRead();
+
+        }
+
         [TestCase(123)]
         [TestCase(0)]
         [TestCase(10)]
@@ -121,6 +150,29 @@ namespace HandinTwo.Test
 
             _displaySub.Received().ConnectionError();
         }
+
+        [Test]
+        public void TestReadRFID_WhenDoorOpen()
+        {
+            _doorSub.OpenDoorEvent += Raise.Event();
+            // State is now DoorOpen
+            _displaySub.ClearReceivedCalls();
+
+            _readerSub.ReadRfidEvent += Raise.EventWith(new object(), new RfidEventArgs(0));
+
+            //State should remain unchanged (DoorOpen)
+            Assert.That(_uut.State, Is.EqualTo(LadeskabState.DoorOpen));
+            // None of the calls associated with door locking should have been made. 
+            // See TestReadRFID_WhenAvailable_AndConnected(int id) for more details.
+            _displaySub.DidNotReceiveWithAnyArgs().IsOccupied(default);
+            _doorSub.DidNotReceive().DoorLock();
+            _logSub.DidNotReceiveWithAnyArgs().LogDoorLocked(default);
+            _chargerSub.DidNotReceive().StartCharge();
+
+            
+
+        }
+
 
 
 
