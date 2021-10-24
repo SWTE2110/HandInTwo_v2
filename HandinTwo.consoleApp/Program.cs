@@ -49,12 +49,20 @@ class Program
                     reader.OnRfidRead(id);
                     break;
                 case 'A':
-                    usb.SimulateConnected(true);
-                    Console.WriteLine("Telefon tilsluttet");
+                    if (stat.State == LadeskabState.DoorOpen)
+                    {
+                        usb.SimulateConnected(true);
+                        Console.WriteLine("Telefon tilsluttet");
+                    }
+
                     break;
                 case 'S':
-                    usb.SimulateConnected(false);
-                    Console.WriteLine("Telefon frasluttet");
+                    if (stat.State == LadeskabState.DoorOpen)
+                    {
+                        usb.SimulateConnected(false);
+                        Console.WriteLine("Telefon frasluttet");
+                    }
+
                     break;
                 default:
                     break;
