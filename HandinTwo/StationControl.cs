@@ -31,7 +31,6 @@ namespace HandinTwo.Classes
         public LadeskabState State
         {
             get => _state;
-            private set { }
         }
         public StationControl(IChargeControl c, IDoor d, IRfidReader r, IDisplay dp, ILogFile l)
         {

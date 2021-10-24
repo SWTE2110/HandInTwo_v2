@@ -34,7 +34,7 @@ namespace HandinTwo.Test
         {
             Assert.That(_uut.State, Is.EqualTo(LadeskabState.Available));
             _displaySub.Received().Available();
-            
+
         }
 
         [Test]
@@ -43,7 +43,7 @@ namespace HandinTwo.Test
             // Raising event that signifies Door opening
             _doorSub.OpenDoorEvent += Raise.Event();
 
-            Assert.That(_uut.State,Is.EqualTo(LadeskabState.DoorOpen));
+            Assert.That(_uut.State, Is.EqualTo(LadeskabState.DoorOpen));
             _displaySub.Received().PhoneConnect();
         }
 
@@ -59,7 +59,7 @@ namespace HandinTwo.Test
             //IDisplay.PhoneConnect() should not have been called again. State should remain DoorOpen
 
             _displaySub.DidNotReceive().PhoneConnect();
-            Assert.That(_uut.State,Is.EqualTo(LadeskabState.DoorOpen));
+            Assert.That(_uut.State, Is.EqualTo(LadeskabState.DoorOpen));
         }
 
         [Test]
@@ -85,10 +85,11 @@ namespace HandinTwo.Test
             // Raising event that signifies Door closing
             _doorSub.CloseDoorEvent += Raise.Event();
 
-            Assert.That(_uut.State,Is.EqualTo(LadeskabState.Available));
+            Assert.That(_uut.State, Is.EqualTo(LadeskabState.Available));
             _displaySub.Received().RFidRead();
-            
+
         }
+
         [Test]
         public void TestCloseDoor_WhenAvailable()
         {
@@ -136,6 +137,7 @@ namespace HandinTwo.Test
             _logSub.Received().LogDoorLocked(id);
             _chargerSub.Received().StartCharge();
         }
+
         [Test]
         public void TestReadRFID_WhenAvailable_AndNotConnected()
         {
@@ -169,7 +171,61 @@ namespace HandinTwo.Test
             _logSub.DidNotReceiveWithAnyArgs().LogDoorLocked(default);
             _chargerSub.DidNotReceive().StartCharge();
 
-            
+
+
+        }
+
+        [TestCase(1)]
+        [TestCase(20)]
+        [TestCase(Int32.MaxValue)]
+
+    public void TestReadRFID_WhenLocked_WithSameID(int id)
+        {
+            _chargerSub.Connected().Returns(true);
+            _readerSub.ReadRfidEvent += Raise.EventWith(new object(), new RfidEventArgs(id));
+            //State is now Locked.
+            _displaySub.ClearReceivedCalls();
+
+            _readerSub.ReadRfidEvent += Raise.EventWith(new object(), new RfidEventArgs(id));
+
+            //State should now be Available.
+            //ICharger.StopCharge() should have been called
+            //IDoor.DoorUnlock() should have been called
+            //ILog.LogDoorUnlocked(id) should have been called
+            //IDisplay.PhoneRemove() should have been called
+            _chargerSub.Received().StopCharge();
+            _doorSub.Received().DoorUnlock();
+            _logSub.Received().LogDoorUnlocked(id);
+            _displaySub.Received().PhoneRemove();
+            Assert.That(_uut.State,Is.EqualTo(LadeskabState.Available));
+        }
+
+    [TestCase(1,10)]
+    [TestCase(10,1)]
+    [TestCase(Int32.MaxValue,0)]
+    public void TestReadRFID_WhenLocked_WithDifferentId(int id1, int id2)
+    {
+        _chargerSub.Connected().Returns(true);
+        _readerSub.ReadRfidEvent += Raise.EventWith(new object(), new RfidEventArgs(id1));
+        //State is now Locked.
+        _displaySub.ClearReceivedCalls();
+
+        _readerSub.ReadRfidEvent += Raise.EventWith(new object(), new RfidEventArgs(id2));
+
+            //State should now be unchanged (Locked)
+            //ICharger.StopCharge() should not have been called
+            //IDoor.DoorUnlock() should not have been called
+            //ILog.LogDoorUnlocked(id) should not have been called
+            //IDisplay.PhoneRemove() should not have been called
+            //IDisplay.RFidError() should have been
+            //
+            _chargerSub.DidNotReceive().StopCharge();
+            _doorSub.DidNotReceive().DoorUnlock();
+            _logSub.DidNotReceiveWithAnyArgs().LogDoorUnlocked(default);
+            _displaySub.DidNotReceive().PhoneRemove();
+            _displaySub.Received().RFidError();
+            Assert.That(_uut.State, Is.EqualTo(LadeskabState.Locked));
+
 
         }
 

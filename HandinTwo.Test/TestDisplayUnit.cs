@@ -69,11 +69,11 @@ namespace HandinTwo.Test
             _uut.IsOccupied(i);
             Assert.That(_text.ToString(), Is.EqualTo($"Ladeskab optaget af {i}\r\n"));
         }
-
+        [Test]
         public void AvailableTest()
         {
             _uut.Available();
-            Assert.That(_text.ToString(), Is.EqualTo($"Ladeskab er ledig\r\n"));
+            Assert.That(_text.ToString(), Is.EqualTo($"Ladeskab er ledigt\r\n"));
         }
 
     }
