@@ -12,10 +12,7 @@ namespace HandinTwo.Classes
         public LogFile(string fp)
         {
             _filepath = fp;
-            if (!File.Exists(_filepath))
-            {
-                File.CreateText(_filepath);
-            }
+            
         }
         public void LogDoorLocked(int Id)
         {
