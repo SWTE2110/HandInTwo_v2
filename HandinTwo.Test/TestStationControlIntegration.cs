@@ -12,12 +12,13 @@ namespace HandinTwo.Test
     public class TestStationControlIntegration
     {
         private StationControl _uut;
-        private IUsbCharger _usb;
-        private IChargeControl _charger;
-        private IDoor _door;
-        private IRfidReader _reader;
-        private IDisplay _display;
-        private ILogFile _log;
+        private UsbChargerSimulator _usb;
+        private ChargeControl _charger;
+        private Door _door;
+        private RfidReader _reader;
+        private Display _display;
+        private string _fp = "StationControlTest.txt";
+        private LogFile _log;
         private StringWriter _text;
 
         [SetUp]
@@ -28,7 +29,7 @@ namespace HandinTwo.Test
             _door = new Door();
             _reader = new RfidReader();
             _display = new Display();
-            _log = new LogFile("StationControlTest");
+            _log = new LogFile(_fp);
             _text = new StringWriter();
             Console.SetOut(_text);
             _uut = new StationControl(_charger, _door, _reader, _display, _log);
@@ -116,14 +117,20 @@ namespace HandinTwo.Test
         public void TestReadRFID_WhenAvailable_AndConnected(int id)
         {
             _usb.SimulateConnected(true);
-
             _text = new StringWriter();
             Console.SetOut(_text);
+            string _readback = String.Empty;
+            File.WriteAllText(_fp, String.Empty);
 
             _reader.OnRfidRead(id);
 
             Assert.That(_uut.State, Is.EqualTo(LadeskabState.Locked));
-            Assert.That(_text.ToString(), Is.EqualTo($"Ladeskab optaget af {i}\r\n"));
-            
+            Assert.That(_text.ToString(), Is.EqualTo($"Ladeskab optaget af {id}\r\n"));
+            Assert.That(_door.IsLocked, Is.True);
+            _readback = File.ReadAllText(_fp);
+            Assert.That(_readback, Is.EqualTo($"Door locked with id:{id}\r\n"));
+            Assert.That(_usb.CurrentValue, Is.Not.EqualTo(0));
+
         }
     }
+}
