@@ -9,7 +9,7 @@ using System.Text;
 namespace HandinTwo.Test
 {
     [TestFixture]
-    public class TestStationControlIntergration
+    public class TestStationControlIntegration
     {
         private StationControl _uut;
         private IUsbCharger _usb;
