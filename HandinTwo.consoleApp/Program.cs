@@ -10,10 +10,11 @@ class Program
 
         string logFile = "logfile.txt"; // Navnet på systemets log-fil
         IUsbCharger usb = new UsbChargerSimulator();
-        IChargeControl charger = new ChargeControl(usb);
+        
         IDoor door = new Door();
         IRfidReader reader = new RfidReader();
         IDisplay display = new Display();
+        IChargeControl charger = new ChargeControl(usb, display);
         ILogFile log = new LogFile(logFile);
         StationControl stat = new StationControl(charger, door, reader, display, log);
          

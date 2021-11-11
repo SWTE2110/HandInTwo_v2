@@ -76,5 +76,28 @@ namespace HandinTwo.Test
             Assert.That(_text.ToString(), Is.EqualTo($"Ladeskab er ledigt\r\n"));
         }
 
+        [TestCase(100)]
+        [TestCase(0)]
+        [TestCase(29.55)]
+        public void ChargingTest(double cur)
+        {
+
+            _uut.Charging(cur);
+            Assert.That(_text.ToString(), Is.EqualTo($"Charging with: {cur} mA\r\n"));
+        }
+        [Test]
+        public void ChargingFailTest()
+        {
+            _uut.ChargingFail();
+            Assert.That(_text.ToString(),Is.EqualTo("Charging failed\r\n"));
+        }
+
+        [Test]
+        public void ChargingCompleteTest()
+        {
+            _uut.ChargingComplete();
+            Assert.That(_text.ToString(),Is.EqualTo("Charging is complete\r\n"));
+        }
+
     }
 }

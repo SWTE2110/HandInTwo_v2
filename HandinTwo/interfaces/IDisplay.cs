@@ -14,5 +14,9 @@ namespace HandinTwo.Interfaces
         void IsOccupied(int id);
         void Available();
 
+        void Charging(double current);
+        void ChargingComplete();
+        void ChargingFail();
+
     }
 }

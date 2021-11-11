@@ -8,7 +8,7 @@ using NUnit.Framework;
 
 namespace HandinTwo.Test
 {
-    [TestFixture]
+    
     class TestChargeControlIntegration
     {
 
@@ -19,7 +19,7 @@ namespace HandinTwo.Test
         public void Setup()
         {
             _usb = new UsbChargerSimulator();
-            _uut = new ChargeControl(_usb);
+            _uut = new ChargeControl(_usb, new Display());
         }
 
         [Test]

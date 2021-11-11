@@ -39,18 +39,18 @@ namespace HandinTwo.Classes
             Console.WriteLine("Ladeskab er ledigt");
         }
 
-        public void Charging(int current)
+        public void Charging(double current)
         {
             Console.WriteLine($"Charging with: {current} mA");
 
         }
         public void ChargingComplete()
         {
-            Console.WriteLine($"Charging is complete");
+            Console.WriteLine("Charging is complete");
         }
         public void ChargingFail()
         {
-            Console.WriteLine($"Charging failed");
+            Console.WriteLine("Charging failed");
         }
     }
 }

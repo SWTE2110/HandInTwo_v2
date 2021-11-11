@@ -8,7 +8,7 @@ using System.Text;
 
 namespace HandinTwo.Test
 {
-    [TestFixture]
+   
     public class TestStationControlIntegration
     {
         private StationControl _uut;
@@ -25,10 +25,10 @@ namespace HandinTwo.Test
         public void Setup()
         {
             _usb = new UsbChargerSimulator();
-            _charger = new ChargeControl(_usb);
             _door = new Door();
             _reader = new RfidReader();
             _display = new Display();
+            _charger = new ChargeControl(_usb,_display);
             _log = new LogFile(_fp);
             _text = new StringWriter();
             Console.SetOut(_text);
