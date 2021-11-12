@@ -103,7 +103,7 @@ namespace HandinTwo.Classes
             _timer.Stop();
 
             CurrentValue = 0.0;
-            OnNewCurrent();
+           
 
             _charging = false;
         }

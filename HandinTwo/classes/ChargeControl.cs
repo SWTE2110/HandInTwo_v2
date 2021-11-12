@@ -38,23 +38,32 @@ namespace HandinTwo.Classes
         {
             if (e.Current <= 5)
             {
-                StopCharge();
-                _display.ChargingComplete();
                 
+                    StopCharge();
+                    _display.ChargingComplete();
+                    _lastcurrent = e.Current;
+
+
 
             }
             else if (e.Current > 500)
             {
                 StopCharge();
                 _display.ChargingFail();
-                
+                _lastcurrent = e.Current;
+
             }
             else
             {
-                if(Math.Abs(_lastcurrent - e.Current) >= 0.5) _display.Charging(e.Current);
-                
+                if (Math.Abs(_lastcurrent - e.Current) >= 0.5)
+                {
+                    _display.Charging(e.Current);
+                    _lastcurrent = e.Current;
+                }
             }
-            _lastcurrent = e.Current;
+
+            
+            
         }
 
 
