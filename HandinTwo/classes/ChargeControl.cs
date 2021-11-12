@@ -30,18 +30,19 @@ namespace HandinTwo.Classes
 
 
             _charger.StopCharge();
-            _lastcurrent = 0;
+           
 
         }
 
         public void HandleCurrentEvent(object sender, CurrentEventArgs e)
         {
-            if (e.Current <= 5 && e.Current > 0)
+            if (e.Current <= 5 && _lastcurrent <= 5)
             {
                 
                     StopCharge();
                     _display.ChargingComplete();
                     _lastcurrent = e.Current;
+
 
 
 
@@ -52,6 +53,7 @@ namespace HandinTwo.Classes
                 _display.ChargingFail();
                 _lastcurrent = e.Current;
 
+
             }
             else
             {
@@ -59,11 +61,12 @@ namespace HandinTwo.Classes
                 {
                     _display.Charging(e.Current);
                     _lastcurrent = e.Current;
+
                 }
             }
 
             
-            
+
         }
 
 
