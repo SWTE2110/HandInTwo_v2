@@ -36,7 +36,7 @@ namespace HandinTwo.Classes
 
         public void HandleCurrentEvent(object sender, CurrentEventArgs e)
         {
-            if (e.Current <= 5)
+            if (e.Current <= 5 && e.Current > 0)
             {
                 
                     StopCharge();

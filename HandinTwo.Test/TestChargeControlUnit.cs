@@ -51,7 +51,7 @@ namespace HandinTwo.Test
 
         }
 
-        [TestCase(0)]
+        [TestCase(0.000001)]
         [TestCase(2.5)]
         [TestCase(5)]
         public void HandleChargeCompleteTest(double cur)
