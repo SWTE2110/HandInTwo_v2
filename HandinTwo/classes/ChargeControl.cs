@@ -36,16 +36,17 @@ namespace HandinTwo.Classes
 
         public void HandleCurrentEvent(object sender, CurrentEventArgs e)
         {
-            if (e.Current <= 5 && _lastcurrent <= 5)
+            if (e.Current <= 5)
             {
-                
+                if (e.Current > 0)
+                {
                     StopCharge();
                     _display.ChargingComplete();
                     _lastcurrent = e.Current;
+                }
 
 
-
-
+                
             }
             else if (e.Current > 500)
             {
